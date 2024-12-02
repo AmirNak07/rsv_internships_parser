@@ -1,4 +1,6 @@
+import json
 import os
+import sys
 
 from dotenv import load_dotenv
 
@@ -13,3 +15,9 @@ API_PARAM = {"filter[includeDraft]": "false", "take": 9, "skip": 0, "filter[isOp
 OFFSET_PARAM = 9
 SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 SHEET_NAME = os.environ.get("SHEET_NAME")
+with open("config/logs.json", "r", encoding="utf-8") as file:
+    LOGS_CONFIG = json.load(file)
+
+for handler in LOGS_CONFIG["handlers"]:
+    if handler["sink"] == "sys.stdout":
+        handler["sink"] = sys.stdout
