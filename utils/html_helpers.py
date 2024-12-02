@@ -1,7 +1,7 @@
 import json
 
 
-def extract_internship_data(json_data, regions, skils):
+def extract_internship_data(json_data, regions, all_skils):
     data = json.loads(json_data)
 
     result = []
@@ -10,6 +10,11 @@ def extract_internship_data(json_data, regions, skils):
             payment_amount = data["data"][i]["paymentAmount"]
         except KeyError:
             payment_amount = "-"
+
+        try:
+            skils = ", ".join(map(lambda x: all_skils[x], data["data"][i]["skillIds"]))
+        except KeyError:
+            skils = "-"
 
         result.append([
             # Title
@@ -21,7 +26,7 @@ def extract_internship_data(json_data, regions, skils):
             # Industry Name
             data["data"][i]["industryName"],
             # Skills
-            ", ".join(map(lambda x: skils[x], data["data"][i]["skillIds"])),
+            skils,
             # Duration
             data["data"][i]["duration"],
             # Work Format

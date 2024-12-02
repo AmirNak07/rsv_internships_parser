@@ -71,5 +71,5 @@ async def get_skils(url: str) -> list:
             response.raise_for_status()
         skils_data = response.json()
 
-    skils = {skil["id"]: skil["name"] for skil in skils_data["data"]}
+    skils = {skill["id"]: skill["name"] for skill in skils_data["data"]}
     return skils
