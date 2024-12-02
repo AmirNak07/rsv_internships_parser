@@ -1,17 +1,19 @@
 import asyncio
+import time
 
 import httpx
+import schedule
 from loguru import logger
 
 from config import (
     API_PARAM,
     INTERNSHIPS_API_URL,
     INTERNSHIPS_PAGE_URL,
+    LOGS_CONFIG,
     OFFSET_PARAM,
     PAGE_PARAM,
     SHEET_NAME,
     SPREADSHEET_ID,
-    LOGS_CONFIG
 )
 from utils.google_sheets_helper import authorize_google_sheets, write_to_google_sheet
 from utils.internship_parser import (
@@ -19,7 +21,6 @@ from utils.internship_parser import (
     get_internship_count,
     parse_internship_card,
 )
-
 
 logger.remove()
 logger.configure(**LOGS_CONFIG)
@@ -48,5 +49,14 @@ async def main():
     logger.debug("Data sent to Google Sheets")
     logger.info("End parsing Internships")
 
-if __name__ == "__main__":
+
+def timer():
     asyncio.run(main())
+
+
+if __name__ == "__main__":
+    schedule.every(3).hours.do(timer)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+    # timer()
