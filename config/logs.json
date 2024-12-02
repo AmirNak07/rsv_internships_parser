@@ -3,7 +3,8 @@
         {
             "sink": "sys.stdout",
             "level": "INFO",
-            "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message}"
+            "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message}",
+            "enqueue": true
         },
         {
             "sink": "logs/log_{time}.log",
@@ -11,7 +12,8 @@
             "format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message}",
             "rotation": "1 week",
             "retention": "1 month",
-            "compression": "zip"
+            "compression": "zip",
+            "enqueue": true
         }
     ]
 }
