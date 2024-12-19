@@ -14,7 +14,7 @@ def write_to_google_sheet(client: gspread.Client, spreadsheet_id: str, sheet_nam
 
     sheet.clear()
 
-    headers = ["title", "instituteName", "region", "industryName", "skills", "duration", "participationFormatName", "paymentAmount"]
+    headers = ["title", "instituteName", "region", "industryName", "skills", "duration", "participationFormatName", "paymentAmount", "link"]
     rows = [headers] + data
 
     sheet.append_rows(values=rows)

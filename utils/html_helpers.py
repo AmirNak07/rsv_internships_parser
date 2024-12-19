@@ -32,6 +32,8 @@ def extract_internship_data(json_data, regions, all_skils):
             # Work Format
             data["data"][i]["participationFormatName"],
             # Payment Amount
-            payment_amount
+            payment_amount,
+            # Link
+            f'https://rsv.ru/internships/{i}/{data["data"][i]["id"]}'
         ])
     return result
