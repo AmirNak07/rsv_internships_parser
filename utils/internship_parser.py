@@ -1,15 +1,15 @@
 import asyncio
 
 from bs4 import BeautifulSoup
-from httpx import AsyncClient
+from httpx import AsyncClient, Timeout
 
 from config import REGIONS_API, SKILS_API
 from utils.html_helpers import extract_internship_data
 
 
 async def get_internship_count(url: str, params: dict) -> int:
-    async with AsyncClient() as client:
-        response = await client.get(url, params=params)
+    async with AsyncClient(timeout=Timeout(10.0)) as client:
+        response = await client.get(url, params=params, timeout=10.0)
         if response.status_code != 200:
             response.raise_for_status()
         html_content = response.text
